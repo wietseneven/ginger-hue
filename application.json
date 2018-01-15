@@ -1,0 +1,9 @@
+{
+  "program": [
+    {
+      "key": "a",
+      "lights": ["2", "3"],
+      "function": "lights toggle"
+    }
+  ]
+}
