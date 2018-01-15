@@ -4,6 +4,9 @@ const http = require('http');
 const socket = require('socket.io');
 const cons = require('consolidate');
 const fs = require('fs');
+const stringifyObject = require('stringify-object');
+
+const application = require('./application');
 
 const bridge = require('./classes/Bridge');
 const Bridge = new bridge();
@@ -36,7 +39,9 @@ class App {
     this.app.use('/assets', express.static('views/build/assets'));
 
     this.app.get('*', (req, res) => {
-      res.render(__dirname + '/views/build/index', { data: stringify(App.getDefaults()) });
+      res.render(__dirname + '/views/build/index', {
+        data: stringifyObject(App.getDefaults()), app: stringifyObject(application)
+      });
     });
 
     this.server.listen(3000, function () {
@@ -56,7 +61,7 @@ class App {
       });
 
       socket.on('lights list', Lights.list);
-      socket.on('light toggle', Lights.toggle);
+      socket.on('lights toggle', Lights.toggle);
     });
   }
 }

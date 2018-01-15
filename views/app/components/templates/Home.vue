@@ -31,13 +31,22 @@
         this.$router.push({ name: "install" });
       } else {
         socket.emit('lights list');
-        socket.on('lights new', this.updateLights)
+        socket.on('lights new', this.updateLights);
+
+        window.addEventListener('keydown', this.checkKeys);
       }
     },
     methods: {
       updateLights(lights) {
-        console.log(lights);
         this.lights = lights;
+      },
+      checkKeys({ key }) {
+        for (let i = 0; i < hue_data.app.program.length; i += 1) {
+          const program = hue_data.app.program[i];
+          if (program.key === key) {
+            socket.emit(program.function, program.lights);
+          }
+        }
       }
     },
     data() {

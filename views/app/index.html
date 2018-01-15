@@ -12,7 +12,8 @@
   <script>
     var socket = io();
     window.hue_data = {};
-    window.hue_data.site = {{ data }};
+    window.hue_data.app = {{{ app }}};
+    window.hue_data.site = {{{ data }}};
     window.hue_data.pages = ['/', '/install'];
   </script>
 </body>

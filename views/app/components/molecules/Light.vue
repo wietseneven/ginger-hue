@@ -1,7 +1,7 @@
 <template>
   <div class="card col-sm" style="margin: 1rem; border: 0;">
     <div class="card-body">
-      <h5 class="card-title">{{name}}</h5>
+      <h5 class="card-title"><small>#{{id}}</small> {{name}}</h5>
       <p class="card-text">{{type}}</p>
       <button
           class="btn btn-primary"
@@ -23,7 +23,7 @@
         this.lights = lights;
       },
       toggle(id) {
-        socket.emit('light toggle', id);
+        socket.emit('lights toggle', id);
       }
     },
     props: [
@@ -35,9 +35,9 @@
     computed: {
       stateTitle: function() {
         if (this.state.on) {
-          return 'off';
+          return 'On';
         } else {
-          return 'on';
+          return 'Off';
         }
       }
     }

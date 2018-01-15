@@ -9,6 +9,7 @@ class Lights {
   constructor() {
     this.list = this.list.bind(this);
     this.toggle = this.toggle.bind(this);
+    this.lights = [];
   }
 
   setSocket(socket) {
@@ -20,12 +21,30 @@ class Lights {
   list() {
     this.api.lights()
       .then(({lights}) => {
+        this.lights = lights;
         this.socket.emit('lights new', lights);
       })
       .done();
   }
 
-  toggle(id) {
+  toggle(ids) {
+    if (typeof ids === 'object') {
+      for (let i = 0; i < ids.length; i += 1) {
+        this.toggleLight(ids[i])
+      }
+    } else {
+      this.toggleLight(ids);
+    }
+  }
+
+  lightExists(id) {
+    for (let i = 0; i < this.lights.length; i += 1) {
+      if (this.lights[i].id === id) return true;
+    }
+  }
+
+  toggleLight(id) {
+    if (!this.lightExists(id)) return;
     this.api.lightStatus(id)
       .then((light) => {
 
@@ -34,6 +53,7 @@ class Lights {
           .fail()
           .done(this.list);
       })
+      .fail()
       .done();
   }
 }
