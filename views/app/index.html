@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Ginger HUE</title>
+</head>
+
+<body>
+  <div id="wn-hue-app"></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();
+    window.hue_data = {};
+    window.hue_data.site = {{ data }};
+    window.hue_data.pages = ['/', '/install'];
+  </script>
+</body>
+
+</html>
