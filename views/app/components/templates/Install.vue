@@ -48,7 +48,7 @@
         });
 
         socket.on('register success', () => {
-          alert('Registering succesful!');
+          alert('Registering succesful! Please restart your server');
           this.$store.commit(types.RECEIVE_SITE, { site: {isConfigurated:true} });
           window.location = 'http://localhost:3000';
         });
