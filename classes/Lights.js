@@ -104,7 +104,8 @@ class Lights {
 
   average({ids, data}) {
     const rgb = Color.averageRgbs(data);
-    this.color({ids, data: rgb})
+    this.color({ids, data: rgb});
+    this.socket.emit('lights average new', rgb);
   }
 }
 
