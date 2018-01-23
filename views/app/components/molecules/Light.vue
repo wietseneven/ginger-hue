@@ -6,25 +6,31 @@
         {{name}}
       </h5>
       <p class="card-text">{{type}}</p>
-      <button
-          class="btn btn-primary"
-          @click="toggle(id)">
-        {{stateTitle}}
-      </button>
+      <div class="buttons">
+        <button
+            class="btn btn-light"
+            @click="toggle(id)">
+          {{stateTitle}}
+        </button>
 
-      <input @change="color(id)" v-model="colorInput" type="color" />
+        <input
+            @change="color(id)"
+            v-model="colorInput"
+            type="color"
+        />
 
-      <button
-          class="btn btn-primary"
-          @click="randomColor(id)">
-        Random color
-      </button>
+        <button
+            class="btn btn-light"
+            @click="randomColor(id)">
+          Random color
+        </button>
 
-      <button
-          class="btn btn-primary"
-          @click="blink(id)">
-        Blink
-      </button>
+        <button
+            class="btn btn-light"
+            @click="blink(id)">
+          Blink
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -92,3 +98,11 @@
     }
   };
 </script>
+
+<style>
+  .buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0.5em;
+  }
+</style>
