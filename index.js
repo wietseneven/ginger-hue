@@ -6,8 +6,6 @@ const cons = require('consolidate');
 const fs = require('fs');
 const stringifyObject = require('stringify-object');
 
-const application = require('./application');
-
 const bridge = require('./classes/Bridge');
 const Bridge = new bridge();
 
@@ -40,7 +38,7 @@ class App {
 
     this.app.get('*', (req, res) => {
       res.render(__dirname + '/views/build/index', {
-        data: stringifyObject(App.getDefaults()), app: stringifyObject(application)
+        data: stringifyObject(App.getDefaults()), app: stringifyObject(require('./application'))
       });
     });
 
@@ -62,24 +60,13 @@ class App {
 
       socket.on('lights list', Lights.list);
       socket.on('lights toggle', Lights.toggle);
+      socket.on('lights color', Lights.color);
+      socket.on('lights blink', Lights.blink);
+      socket.on('lights average', Lights.average)
     });
   }
 }
 
 const gingerHue = new App();
-
-function stringify(obj_from_json) {
-  if (typeof obj_from_json !== "object" || Array.isArray(obj_from_json)) {
-    // not an object, stringify using native function
-    return JSON.stringify(obj_from_json);
-  }
-  // Implements recursive object serialization according to JSON spec
-  // but without quotes around the keys.
-  let props = Object
-    .keys(obj_from_json)
-    .map(key => `${key}:${stringify(obj_from_json[key])}`)
-    .join(",");
-  return `{${props}}`;
-}
 
 module.exports = App;
